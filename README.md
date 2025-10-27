@@ -8,6 +8,7 @@ Sumário
 -------
 - Visão geral do projeto
 - Estrutura do repositório
+- Arquitetura Medallion
 - Como reproduzir (instalação e execução)
 - Principais análises realizadas
 - Notas e recomendações
@@ -19,7 +20,6 @@ O dataset principal está em CSV: `habitos_e_desempenho_estudantil.csv`. Contém
 Arquivos importantes
 --------------------
 - `analise_habitos_desempenho_estudantes.ipynb` — Notebook principal com toda a exploração, engenharia de features, análises estatísticas e visualizações.
-- `student_analysis (1).ipynb` — Versão alternativa / rascunho do notebook (se presente).
 - `habitos_e_desempenho_estudantil.csv` — Base de dados usada nas análises.
 - `Instrucoes/README.md` — Enunciado e instruções do teste.
 
@@ -30,6 +30,37 @@ Objetivos do projeto
 3. Executar análise estatística (matriz de correlação, testes de significância) para identificar fatores que influenciam as notas.
 4. Gerar visualizações relevantes (mapa de calor de correlação, análise detalhada de variáveis de maior impacto, comparação por faixas).
 5. Sintetizar insights acionáveis e recomendações.
+
+Arquitetura Medallion
+--------------------
+O projeto foi estruturado para salvar informações seguindo a arquitetura Medallion, que organiza os dados em três camadas principais:
+
+### Bronze (Raw)
+- Dados brutos importados do CSV
+- Preservação do formato original
+- Documentação de fonte e timestamp
+- Validação inicial de schema
+
+### Silver (Refined)
+- Dados limpos e padronizados
+- Tratamento de valores ausentes
+- Correção de tipos de dados
+- Remoção de inconsistências
+- Criação de variáveis derivadas básicas
+
+### Gold (Curated)
+- Dados agregados e transformados
+- Features engineered (ex: score de hábitos saudáveis)
+- Métricas calculadas
+- Dados prontos para análise
+- Views específicas para diferentes análises
+
+Esta arquitetura garantiu:
+- Rastreabilidade das transformações
+- Reprodutibilidade das análises
+- Qualidade progressiva dos dados
+- Separação clara entre dados brutos e transformados
+- Facilidade de manutenção e evolução
 
 Como executar
 -------------
